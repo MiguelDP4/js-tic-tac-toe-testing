@@ -16,7 +16,6 @@ export const displayModule = (() => {
     form.style.display = 'none';
   };
 
-
   const updateScores = () => {
     document.getElementById('score-player-1').innerHTML = globals.player1.getScore();
     document.getElementById('score-player-2').innerHTML = globals.player2.getScore();
@@ -30,7 +29,6 @@ export const displayModule = (() => {
       cell.innerHTML = '';
     }
   };
-
 
   const cleanForm = () => {
     document.getElementById('PlayerName1').value = '';
@@ -59,7 +57,6 @@ export const displayModule = (() => {
       op += op * 0.1;
     }, 10);
   };
-
 
   return {
     showMessageDraw,

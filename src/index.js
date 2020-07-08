@@ -2,7 +2,6 @@ import '../style/style.css';
 import { displayModule } from './displayModule';
 import { boardModule } from './boardModule';
 
-
 window.onload = function loadGame() {
   displayModule.hideElement('board');
   displayModule.showElement('players');
