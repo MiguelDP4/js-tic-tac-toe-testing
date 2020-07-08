@@ -87,7 +87,7 @@ export const boardModule = (() => {
 
   const startGame = () => {
     displayModule.showElement('board');
-    displayModule.initializeBoardButtons();
+    initializeBoardButtons();
     displayModule.showElement('reset-top-button');
     const namePlayer1 = document.getElementById('PlayerName1');
     const namePlayer2 = document.getElementById('PlayerName2');
