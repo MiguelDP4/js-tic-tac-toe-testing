@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "watchtest": "jest --watch *.js"
   },
   "repository": {
     "type": "git",

@@ -26,9 +26,9 @@ export const boardModule = (() => {
   const fillBoardCell = (index, boardCells = cells) => {
     if (boardCells[index - 1] === '') {
       boardCells[index - 1] = globals.turn;
-      return index;
+      return true;
     }
-    return -1;
+    return false;
   };
 
   const resetGame = () => {
@@ -97,7 +97,7 @@ export const boardModule = (() => {
       const cell = document.getElementById(cellId);
       const turnSuccess = fillBoardCell(index);
       
-      if (turnSuccess !== -1) {
+      if (turnSuccess) {
         displayModule.fadeIn(cell);
         if (checkWin()) {
           displayModule.showElement('win-screen');
@@ -125,4 +125,5 @@ export const boardModule = (() => {
   };
 })();
 
-module.exports = boardModule;
+export default boardModule;
+//module.exports = boardModule;
