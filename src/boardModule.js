@@ -4,27 +4,28 @@ import {displayModule} from './displayModule';
 
 export const boardModule = (() => {
   let cells = ['', '', '', '', '', '', '', '', ''];
-  const checkWin = () => {
+
+  const checkWin = (boardCells = cells) => {
     const tempArray = [];
-    tempArray.push(globals.turn === cells[0] && globals.turn === cells[1] && globals.turn === cells[2]);
-    tempArray.push(globals.turn === cells[3] && globals.turn === cells[4] && globals.turn === cells[5]);
-    tempArray.push(globals.turn === cells[6] && globals.turn === cells[7] && globals.turn === cells[8]);
-    tempArray.push(globals.turn === cells[0] && globals.turn === cells[3] && globals.turn === cells[6]);
-    tempArray.push(globals.turn === cells[1] && globals.turn === cells[4] && globals.turn === cells[7]);
-    tempArray.push(globals.turn === cells[2] && globals.turn === cells[5] && globals.turn === cells[8]);
-    tempArray.push(globals.turn === cells[0] && globals.turn === cells[4] && globals.turn === cells[8]);
-    tempArray.push(globals.turn === cells[6] && globals.turn === cells[4] && globals.turn === cells[2]);
+    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[1] && globals.turn === boardCells[2]);
+    tempArray.push(globals.turn === boardCells[3] && globals.turn === boardCells[4] && globals.turn === boardCells[5]);
+    tempArray.push(globals.turn === boardCells[6] && globals.turn === boardCells[7] && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[3] && globals.turn === boardCells[6]);
+    tempArray.push(globals.turn === boardCells[1] && globals.turn === boardCells[4] && globals.turn === boardCells[7]);
+    tempArray.push(globals.turn === boardCells[2] && globals.turn === boardCells[5] && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[4] && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[6] && globals.turn === boardCells[4] && globals.turn === boardCells[2]);
     return tempArray.some(x => x === true);
   };
 
-  const checkDraw = () => {
-    if ((cells.every(x => x !== '')) && !checkWin()) return true;
+  const checkDraw = (boardCells = cells) => {
+    if ((boardCells.every(x => x !== '')) && !checkWin()) return true;
     return false;
   };
 
-  const fillBoardCell = (index) => {
-    if (cells[index - 1] === '') {
-      cells[index - 1] = globals.turn;
+  const fillBoardCell = (index, boardCells = cells) => {
+    if (boardCells[index - 1] === '') {
+      boardCells[index - 1] = globals.turn;
       return index;
     }
     return -1;
@@ -123,3 +124,5 @@ export const boardModule = (() => {
     checkWin, fillBoardCell, checkDraw, resetGame, newGame, startGame, showMessageWinner, takeTurn,
   };
 })();
+
+module.exports = boardModule;
