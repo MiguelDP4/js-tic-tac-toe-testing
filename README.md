@@ -1,6 +1,6 @@
-# Library
+# TicTacToe Testing
 
-The purpose of this project is to build the TIC-TAC-TOE game to play on the browser, it is required for this project using Factory functions and module  pattern using javascript.
+This project was created to practice testing with jest on javascript.
 
 ## Built With
 
