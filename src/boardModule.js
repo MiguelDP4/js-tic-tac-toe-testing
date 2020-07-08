@@ -45,7 +45,15 @@ export const boardModule = (() => {
     displayModule.cleanForm();
     globals.continueGame = true;
   };
-
+  const defaultPlayers = (namePlayer, id) => {
+    if (namePlayer.value === '') {
+      globals.player1 = Player('player-1', 'X');
+      globals.player2 = Player('player-2', 'O');
+    } else {
+      globals.player1 = Player(namePlayer1.value);
+      globals.player2 = Player(namePlayer2.value);
+    }
+  }
   const startGame = () => {
     displayModule.showElement('board');
     displayModule.initializeBoardButtons();
@@ -54,13 +62,7 @@ export const boardModule = (() => {
     const namePlayer2 = document.getElementById('PlayerName2');
     const symbol = document.getElementById('inputSymbolGame');
 
-    if (namePlayer1.value === '') {
-      globals.player1 = Player('player-1', 'X');
-      globals.player2 = Player('player-2', 'O');
-    } else {
-      globals.player1 = Player(namePlayer1.value);
-      globals.player2 = Player(namePlayer2.value);
-    }
+    
     
     if (symbol.value === 1) {
       globals.player1.symbol = 'X';
@@ -125,5 +127,5 @@ export const boardModule = (() => {
   };
 })();
 
-export default boardModule;
+export default projectModule;
 //module.exports = boardModule;
