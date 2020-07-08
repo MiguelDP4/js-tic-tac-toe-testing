@@ -2,7 +2,7 @@
   "name": "js-tic-tac-toe-testing",
   "version": "1.0.0",
   "description": "The purpose of this project is to build the TIC-TAC-TOE game to play on the browser, it is required for this project using Factory functions and module  pattern using javascript.",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "test": "jest"
@@ -22,17 +22,6 @@
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "babel-jest": "^26.1.0",
-    "jest": "^26.1.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
-  },
-  "jest": {
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "bower_components", "shared"],
-
-    "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-    }
+    "jest": "^26.1.0"
   }
 }
