@@ -1,11 +1,11 @@
 import {
-  globals
+  globals,
 } from './globals';
 import {
-  Player
+  Player,
 } from './playerFactory';
 import {
-  displayModule
+  displayModule,
 } from './displayModule';
 
 export const boardModule = (() => {
@@ -13,14 +13,30 @@ export const boardModule = (() => {
 
   const checkWin = (boardCells = cells) => {
     const tempArray = [];
-    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[1] && globals.turn === boardCells[2]);
-    tempArray.push(globals.turn === boardCells[3] && globals.turn === boardCells[4] && globals.turn === boardCells[5]);
-    tempArray.push(globals.turn === boardCells[6] && globals.turn === boardCells[7] && globals.turn === boardCells[8]);
-    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[3] && globals.turn === boardCells[6]);
-    tempArray.push(globals.turn === boardCells[1] && globals.turn === boardCells[4] && globals.turn === boardCells[7]);
-    tempArray.push(globals.turn === boardCells[2] && globals.turn === boardCells[5] && globals.turn === boardCells[8]);
-    tempArray.push(globals.turn === boardCells[0] && globals.turn === boardCells[4] && globals.turn === boardCells[8]);
-    tempArray.push(globals.turn === boardCells[6] && globals.turn === boardCells[4] && globals.turn === boardCells[2]);
+    tempArray.push(globals.turn === boardCells[0]
+      && globals.turn === boardCells[1]
+      && globals.turn === boardCells[2]);
+    tempArray.push(globals.turn === boardCells[3]
+      && globals.turn === boardCells[4]
+      && globals.turn === boardCells[5]);
+    tempArray.push(globals.turn === boardCells[6]
+      && globals.turn === boardCells[7]
+      && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[0]
+      && globals.turn === boardCells[3]
+      && globals.turn === boardCells[6]);
+    tempArray.push(globals.turn === boardCells[1]
+      && globals.turn === boardCells[4]
+      && globals.turn === boardCells[7]);
+    tempArray.push(globals.turn === boardCells[2]
+      && globals.turn === boardCells[5]
+      && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[0]
+      && globals.turn === boardCells[4]
+      && globals.turn === boardCells[8]);
+    tempArray.push(globals.turn === boardCells[6]
+      && globals.turn === boardCells[4]
+      && globals.turn === boardCells[2]);
     return tempArray.some(x => x === true);
   };
 
@@ -53,25 +69,20 @@ export const boardModule = (() => {
   };
 
   const defaultSymbol = (symbol) => {
-    if (symbol != 'X' && symbol != 'O')
-      return 'X';
-    else
-      return symbol;
-  }
+    if (symbol !== 'X' && symbol !== 'O') return 'X';
+    return symbol;
+  };
 
   const defaultPlayerName = (namePlayer, symbol) => {
     if (namePlayer === '') {
-      return `player${symbol}`
-    } else {
-      return namePlayer;
+      return `player${symbol}`;
     }
+    return namePlayer;
   };
 
   const selectOppositeSymbol = (symbol) => {
-    if (symbol === 'X')
-      return 'O';
-    else
-      return 'X';
+    if (symbol === 'X') return 'O';
+    return 'X';
   };
 
   const startGame = () => {
@@ -82,11 +93,11 @@ export const boardModule = (() => {
     const namePlayer2 = document.getElementById('PlayerName2');
     const symbol = document.getElementById('inputSymbolGame');
 
-    let player1Symbol = defaultSymbol(symbol.options[symbol.selectedIndex].text);
-    let player2Symbol = selectOppositeSymbol(player1Symbol);
+    const player1Symbol = defaultSymbol(symbol.options[symbol.selectedIndex].text);
+    const player2Symbol = selectOppositeSymbol(player1Symbol);
 
-    let player1Name = defaultPlayerName(namePlayer1.value, player1Symbol);
-    let player2Name = defaultPlayerName(namePlayer2.value, player2Symbol);
+    const player1Name = defaultPlayerName(namePlayer1.value, player1Symbol);
+    const player2Name = defaultPlayerName(namePlayer2.value, player2Symbol);
 
     globals.player1 = Player(player1Name, player1Symbol);
     globals.player2 = Player(player2Name, player2Symbol);
@@ -141,6 +152,14 @@ export const boardModule = (() => {
     }
   };
 
+  const initializeBoardButtons = () => {
+    for (let i = 1; i <= 9; i += 1) {
+      document.getElementById(`cell-${i}`).addEventListener('click', () => {
+        boardModule.takeTurn(`cell-${i}`, i);
+      });
+    }
+  };
+
   return {
     checkWin,
     fillBoardCell,
@@ -152,9 +171,9 @@ export const boardModule = (() => {
     takeTurn,
     defaultSymbol,
     defaultPlayerName,
-    selectOppositeSymbol
+    selectOppositeSymbol,
+    initializeBoardButtons,
   };
 })();
 
 export default boardModule;
-//module.exports = boardModule;

@@ -1,8 +1,8 @@
 export const globals = (() => {
-  let turn = 'X';
+  const turn = 'X';
   let player1;
   let player2;
-  let continueGame = true;
+  const continueGame = true;
 
   return {
     turn,

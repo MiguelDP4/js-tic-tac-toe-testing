@@ -1,6 +1,6 @@
 import '../style/style.css';
-import {displayModule} from './displayModule';
-import {boardModule} from './boardModule';
+import { displayModule } from './displayModule';
+import { boardModule } from './boardModule';
 
 
 window.onload = function loadGame() {
@@ -10,7 +10,7 @@ window.onload = function loadGame() {
 
   const newGameButton = document.getElementById('new-game-button');
   displayModule.addOnClickEvent(newGameButton, boardModule.newGame);
-  
+
   const startGameButton = document.getElementById('start-game-button');
   displayModule.addOnClickEvent(startGameButton, boardModule.startGame);
 
@@ -18,5 +18,4 @@ window.onload = function loadGame() {
   displayModule.addOnClickEvent(resetGameButton, boardModule.resetGame);
   const resetBottomButton = document.getElementById('reset-bottom-button');
   displayModule.addOnClickEvent(resetBottomButton, boardModule.resetGame);
-
 };

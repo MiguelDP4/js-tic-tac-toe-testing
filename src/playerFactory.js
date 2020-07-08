@@ -8,3 +8,5 @@ export const Player = (name, symbol) => {
     name, symbol, increaseScore, getScore,
   };
 };
+
+export default Player;

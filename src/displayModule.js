@@ -1,5 +1,4 @@
-import {globals} from './globals';
-import {boardModule} from './boardModule';
+import { globals } from './globals';
 
 export const displayModule = (() => {
   const showMessageDraw = () => {
@@ -61,14 +60,6 @@ export const displayModule = (() => {
     }, 10);
   };
 
-  const initializeBoardButtons = () => {
-    for(let i = 1; i <= 9; i+=1){
-      document.getElementById(`cell-${i}`).addEventListener("click", function() {
-        boardModule.takeTurn(`cell-${i}`, i);
-      });
-    }
-  };
-  
 
   return {
     showMessageDraw,
@@ -79,6 +70,7 @@ export const displayModule = (() => {
     cleanForm,
     addOnClickEvent,
     fadeIn,
-    initializeBoardButtons
   };
 })();
+
+export default displayModule;
