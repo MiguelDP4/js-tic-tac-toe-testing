@@ -10,6 +10,25 @@ import {
 
 export const boardModule = (() => {
   let cells = ['', '', '', '', '', '', '', '', ''];
+  const showMessageWinner = () => {
+    const winMessage = document.getElementById('win-message');
+    if (globals.turn === globals.player1.symbol) {
+      winMessage.innerHTML = `${globals.player1.name} wins this round!`;
+      globals.player1.increaseScore();
+    }
+    if (globals.turn === globals.player2.symbol) {
+      winMessage.innerHTML = `${globals.player2.name} wins this round!`;
+      globals.player2.increaseScore();
+    }
+  };
+
+  const fillBoardCell = (index, boardCells = cells) => {
+    if (boardCells[index - 1] === '') {
+      boardCells[index - 1] = globals.turn;
+      return true;
+    }
+    return false;
+  };
 
   const checkWin = (boardCells = cells) => {
     const tempArray = [];
@@ -45,12 +64,39 @@ export const boardModule = (() => {
     return false;
   };
 
-  const fillBoardCell = (index, boardCells = cells) => {
-    if (boardCells[index - 1] === '') {
-      boardCells[index - 1] = globals.turn;
-      return true;
+  const takeTurn = (cellId, index) => {
+    if (globals.continueGame) {
+      const cell = document.getElementById(cellId);
+      const turnSuccess = fillBoardCell(index);
+      if (turnSuccess) {
+        displayModule.fadeIn(cell);
+        if (checkWin()) {
+          displayModule.showElement('win-screen');
+          showMessageWinner();
+          displayModule.updateScores();
+          globals.continueGame = false;
+        }
+        if (checkDraw()) {
+          displayModule.showElement('win-screen');
+          displayModule.showMessageDraw();
+          globals.continueGame = false;
+        }
+        cell.innerHTML = `<img class='board-img' src='../img/tictactoe${globals.turn}.svg'>`;
+        if (globals.turn === 'X') {
+          globals.turn = 'O';
+        } else {
+          globals.turn = 'X';
+        }
+      }
     }
-    return false;
+  };
+
+  const initializeBoardButtons = () => {
+    for (let i = 1; i <= 9; i += 1) {
+      document.getElementById(`cell-${i}`).addEventListener('click', () => {
+        boardModule.takeTurn(`cell-${i}`, i);
+      });
+    }
   };
 
   const resetGame = () => {
@@ -110,54 +156,6 @@ export const boardModule = (() => {
     displayModule.updateScores();
 
     displayModule.hideElement('players');
-  };
-
-  const showMessageWinner = () => {
-    const winMessage = document.getElementById('win-message');
-    if (globals.turn === globals.player1.symbol) {
-      winMessage.innerHTML = `${globals.player1.name} wins this round!`;
-      globals.player1.increaseScore();
-    }
-    if (globals.turn === globals.player2.symbol) {
-      winMessage.innerHTML = `${globals.player2.name} wins this round!`;
-      globals.player2.increaseScore();
-    }
-  };
-
-  const takeTurn = (cellId, index) => {
-    if (globals.continueGame) {
-      const cell = document.getElementById(cellId);
-      const turnSuccess = fillBoardCell(index);
-
-      if (turnSuccess) {
-        displayModule.fadeIn(cell);
-        if (checkWin()) {
-          displayModule.showElement('win-screen');
-          showMessageWinner();
-          displayModule.updateScores();
-          globals.continueGame = false;
-        }
-        if (checkDraw()) {
-          displayModule.showElement('win-screen');
-          displayModule.showMessageDraw();
-          globals.continueGame = false;
-        }
-        cell.innerHTML = `<img class='board-img' src='../img/tictactoe${globals.turn}.svg'>`;
-        if (globals.turn === 'X') {
-          globals.turn = 'O';
-        } else {
-          globals.turn = 'X';
-        }
-      }
-    }
-  };
-
-  const initializeBoardButtons = () => {
-    for (let i = 1; i <= 9; i += 1) {
-      document.getElementById(`cell-${i}`).addEventListener('click', () => {
-        boardModule.takeTurn(`cell-${i}`, i);
-      });
-    }
   };
 
   return {
