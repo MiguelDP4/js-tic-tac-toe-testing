@@ -1,6 +1,38 @@
 import { boardModule } from '../boardModule';
 
-test.only('checks if player won on position 1,2,3 ', () => {
+test('if user does not select a symbol, the default symbol is X', () => {
+  expect(boardModule.defaultSymbol('')).toBe('X');
+});
+
+test('if user selects a symbol, the symbol will be the one the user selected', () => {
+  expect(boardModule.defaultSymbol('X')).toBe('X');
+});
+
+test('if user selects a symbol, the symbol will be the one the user selected', () => {
+  expect(boardModule.defaultSymbol('O')).toBe('O');
+});
+
+test('If the user does not select a name, their name will be player<symbol>', () => {
+  expect(boardModule.defaultPlayerName('', 'X')).toBe('playerX');
+});
+
+test('If the user does not select a name, their name will be player<symbol>', () => {
+  expect(boardModule.defaultPlayerName('', 'O')).toBe('playerO');
+});
+
+test('If the user writes their name, their name will be the selected one', () => {
+  expect(boardModule.defaultPlayerName('Mike', 'O')).toBe('Mike');
+});
+
+test('The second player will have the opposite symbol the first player selected', () => {
+  expect(boardModule.selectOppositeSymbol('O')).toBe('X');
+});
+
+test('The second player will have the opposite symbol the first player selected', () => {
+  expect(boardModule.selectOppositeSymbol('X')).toBe('O');
+});
+
+test('checks if player won on position 1,2,3 ', () => {
   let boardCells = ['X', 'X', 'X', '', '', '', '', '', ''];
   expect(boardModule.checkWin(boardCells)).toBe(true);
 });

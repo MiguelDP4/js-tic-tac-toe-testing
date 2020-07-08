@@ -1,6 +1,12 @@
-import {globals} from './globals';
-import {Player} from './playerFactory';
-import {displayModule} from './displayModule';
+import {
+  globals
+} from './globals';
+import {
+  Player
+} from './playerFactory';
+import {
+  displayModule
+} from './displayModule';
 
 export const boardModule = (() => {
   let cells = ['', '', '', '', '', '', '', '', ''];
@@ -45,15 +51,29 @@ export const boardModule = (() => {
     displayModule.cleanForm();
     globals.continueGame = true;
   };
-  const defaultPlayers = (namePlayer, id) => {
-    if (namePlayer.value === '') {
-      globals.player1 = Player('player-1', 'X');
-      globals.player2 = Player('player-2', 'O');
-    } else {
-      globals.player1 = Player(namePlayer1.value);
-      globals.player2 = Player(namePlayer2.value);
-    }
+
+  const defaultSymbol = (symbol) => {
+    if (symbol != 'X' && symbol != 'O')
+      return 'X';
+    else
+      return symbol;
   }
+
+  const defaultPlayerName = (namePlayer, symbol) => {
+    if (namePlayer === '') {
+      return `player${symbol}`
+    } else {
+      return namePlayer;
+    }
+  };
+
+  const selectOppositeSymbol = (symbol) => {
+    if (symbol === 'X')
+      return 'O';
+    else
+      return 'X';
+  };
+
   const startGame = () => {
     displayModule.showElement('board');
     displayModule.initializeBoardButtons();
@@ -62,24 +82,23 @@ export const boardModule = (() => {
     const namePlayer2 = document.getElementById('PlayerName2');
     const symbol = document.getElementById('inputSymbolGame');
 
-    
-    
-    if (symbol.value === 1) {
-      globals.player1.symbol = 'X';
-      globals.player2.symbol = 'O';
-    } else {
-      globals.player1.symbol = 'O';
-      globals.player2.symbol = 'X';
-    }
+    let player1Symbol = defaultSymbol(symbol.options[symbol.selectedIndex].text);
+    let player2Symbol = selectOppositeSymbol(player1Symbol);
 
-   document.getElementById('show-symbol-player-1').innerHTML = globals.player1.symbol;
-   document.getElementById('show-symbol-player-2').innerHTML = globals.player2.symbol;
+    let player1Name = defaultPlayerName(namePlayer1.value, player1Symbol);
+    let player2Name = defaultPlayerName(namePlayer2.value, player2Symbol);
 
-   document.getElementById('name-player-1').innerHTML = globals.player1.name;
-   document.getElementById('name-player-2').innerHTML = globals.player2.name;
-   displayModule.updateScores();
+    globals.player1 = Player(player1Name, player1Symbol);
+    globals.player2 = Player(player2Name, player2Symbol);
 
-   displayModule.hideElement('players');
+    document.getElementById('show-symbol-player-1').innerHTML = globals.player1.symbol;
+    document.getElementById('show-symbol-player-2').innerHTML = globals.player2.symbol;
+
+    document.getElementById('name-player-1').innerHTML = globals.player1.name;
+    document.getElementById('name-player-2').innerHTML = globals.player2.name;
+    displayModule.updateScores();
+
+    displayModule.hideElement('players');
   };
 
   const showMessageWinner = () => {
@@ -98,7 +117,7 @@ export const boardModule = (() => {
     if (globals.continueGame) {
       const cell = document.getElementById(cellId);
       const turnSuccess = fillBoardCell(index);
-      
+
       if (turnSuccess) {
         displayModule.fadeIn(cell);
         if (checkWin()) {
@@ -123,9 +142,19 @@ export const boardModule = (() => {
   };
 
   return {
-    checkWin, fillBoardCell, checkDraw, resetGame, newGame, startGame, showMessageWinner, takeTurn,
+    checkWin,
+    fillBoardCell,
+    checkDraw,
+    resetGame,
+    newGame,
+    startGame,
+    showMessageWinner,
+    takeTurn,
+    defaultSymbol,
+    defaultPlayerName,
+    selectOppositeSymbol
   };
 })();
 
-export default projectModule;
+export default boardModule;
 //module.exports = boardModule;
