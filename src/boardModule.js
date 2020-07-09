@@ -1,12 +1,6 @@
-import {
-  globals,
-} from './globals';
-import {
-  Player,
-} from './playerFactory';
-import {
-  displayModule,
-} from './displayModule';
+import { globals } from './globals';
+import { Player } from './playerFactory';
+import { displayModule } from './displayModule';
 
 export const boardModule = (() => {
   let cells = ['', '', '', '', '', '', '', '', ''];
